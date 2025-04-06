@@ -1,0 +1,4 @@
+import = ["~/.config/alacritty/catppuccin-frappe.toml"]
+
+[window]
+opacity=0.80

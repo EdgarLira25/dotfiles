@@ -1,0 +1,5 @@
+alacritty
+rofi
+sway
+swaylock
+waybar
