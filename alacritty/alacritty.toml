@@ -1,4 +1,7 @@
-import = ["~/.config/alacritty/catppuccin-frappe.toml"]
+import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
 
 [window]
-opacity=0.80
+opacity=0.90
+
+[env]
+term = "xterm-256color"

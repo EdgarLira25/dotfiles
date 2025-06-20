@@ -13,25 +13,25 @@ exec --no-startup-id feh --bg-fill /home/edgarlira/Pictures/Wallpapers/faded.jpe
 new_window none
 gaps inner 2
 
+exec compton
 exec --no-startup-id xss-lock -- i3lock -c 000000
-exec --no-startup-id polybar
+
 exec_always --no-startup-id xset s 300 600
 exec_always --no-startup-id xset +dpms
 exec_always --no-startup-id xset dpms 600 600 600
 
-# Layout do teclado
+bindsym --release Print exec gnome-screenshot -i
+bindsym --release $mod+Print exec gnome-screenshot -a
+
 exec --no-startup-id setxkbmap -layout br -variant abnt2
 
-# Teclas de atalho
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
 bindsym $mod+d exec $menu
 
-# Recarregar ou sair
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Você quer mesmo sair do i3?' -b 'Sim, sair' 'i3-msg exit'"
 
-# Foco entre janelas
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
@@ -41,7 +41,6 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# Mover janelas
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
@@ -51,7 +50,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# Workspaces
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -63,7 +61,6 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-# Mover container para workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -75,32 +72,21 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# Divisão horizontal e vertical
 bindsym $mod+b split h
 bindsym $mod+v split v
 
-# Layouts
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# Fullscreen
 bindsym $mod+f fullscreen
 
-# Floating
 bindsym $mod+Shift+space floating toggle
-
-# Alternar modo de foco
 bindsym $mod+space focus mode_toggle
 
-# Foco no contêiner pai
-bindsym $mod+a focus parent
-
-# Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-# Modo resize
 mode "resize" {
     bindsym $left resize shrink width 10 px or 10 ppt
     bindsym $down resize grow height 10 px or 10 ppt
@@ -117,3 +103,20 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+bar {
+    position top
+    status_command ~/.config/i3/script.sh
+    font pango:JetBrainsMono Nerd Font 12
+    height 25
+    colors {
+        background #303446
+        statusline #c6d0f5
+        separator  #414559
+
+        focused_workspace  #c6d0f5 #303446 #c6d0f5
+        active_workspace   #8caaee #303446 #8caaee
+        inactive_workspace #8caaee #303446 #8caaee
+        urgent_workspace   #e78284 #303446 #e78284
+    }
+}
