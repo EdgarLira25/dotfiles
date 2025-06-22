@@ -1,7 +1,11 @@
-import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
+general.import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
 
 [window]
-opacity=0.90
+opacity=0.9
 
 [env]
 term = "xterm-256color"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size=11.5

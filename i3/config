@@ -8,20 +8,30 @@ set $right l
 set $term alacritty
 set $menu rofi -show drun -show-icons
 
-exec --no-startup-id feh --bg-fill /home/edgarlira/Pictures/Wallpapers/faded.jpeg
+exec --no-startup-id feh --bg-fill /home/edgar/Pictures/Wallpapers/gojo.png
 
-new_window none
+bindsym Print exec scrot ~/Pictures/%Y-%m-%d-%H%M%S.png
+bindsym --release Shift+Print exec scrot -s -f \~/Pictures/%Y-%m-%d-%H%M%S.png
+bindsym --release $mod+Print exec scrot -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
+
+
+exec --no-startup-id xinput set-prop "Synaptics TM3336-004" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "Synaptics TM3336-004" "libinput Natural Scrolling Enabled" 0
+
+exec --no-startup-id picom
+
 gaps inner 2
 
-exec compton
+for_window [class="^.*"] border pixel 1
+
 exec --no-startup-id xss-lock -- i3lock -c 000000
 
 exec_always --no-startup-id xset s 300 600
 exec_always --no-startup-id xset +dpms
 exec_always --no-startup-id xset dpms 600 600 600
 
-bindsym --release Print exec gnome-screenshot -i
-bindsym --release $mod+Print exec gnome-screenshot -a
+# bindsym --release Print exec gnome-screenshot -i
+# bindsym --release $mod+Print exec gnome-screenshot -a
 
 exec --no-startup-id setxkbmap -layout br -variant abnt2
 
@@ -72,6 +82,14 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+bindsym Ctrl+$mod+l workspace next
+bindsym Ctrl+$mod+h workspace prev
+
+bindsym Ctrl+Shift+$mod+l move container to workspace number $(expr $(i3-msg -t get_workspaces | jq '.[] | select(.focused==true) | .num') + 1); workspace next
+
+bindsym Ctrl+Shift+$mod+h move container to workspace number $(expr $(i3-msg -t get_workspaces | jq '.[] | select(.focused==true) | .num') - 1); workspace prev
+
+
 bindsym $mod+b split h
 bindsym $mod+v split v
 
@@ -104,13 +122,48 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+set $rosewater #f4dbd6
+set $flamingo #f0c6c6
+set $pink #f5bde6
+set $mauve #c6a0f6
+set $red #ed8796
+set $maroon #ee99a0
+set $peach #f5a97f
+set $yellow #eed49f
+set $green #a6da95
+set $teal #8bd5ca
+set $sky #91d7e3
+set $sapphire #7dc4e4
+set $blue #8aadf4
+set $lavender #b7bdf8
+set $text #cad3f5
+set $subtext1 #b8c0e0
+set $subtext0 #a5adcb
+set $overlay2 #939ab7
+set $overlay1 #8087a2
+set $overlay0 #6e738d
+set $surface2 #5b6078
+set $surface1 #494d64
+set $surface0 #363a4f
+set $base #24273a
+set $mantle #1e2030
+set $crust #181926
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
 bar {
     position top
     status_command ~/.config/i3/script.sh
     font pango:JetBrainsMono Nerd Font 12
     height 25
     colors {
-        background #303446
+        background #24273a
         statusline #c6d0f5
         separator  #414559
 
